@@ -1,0 +1,30 @@
+spring:
+  application:
+    name : TechItEasyKotlin
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/TechItEasy
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+
+  jpa:
+    database: postgresql
+    generate-ddl: true
+    properties:
+      hibernate:
+        ddl-auto: create-drop
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    defer-datasource-initialization: true
+#         jdbc:
+#           lob:
+#             non_contextual_creation: true
+  sql:
+    init:
+      mode: always
+
+
+

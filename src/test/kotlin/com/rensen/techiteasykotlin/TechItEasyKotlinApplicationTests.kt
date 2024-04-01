@@ -1,4 +1,4 @@
-package com.example.techiteasykotlin
+package com.rensen.techiteasykotlin
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
