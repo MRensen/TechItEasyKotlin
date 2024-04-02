@@ -1,41 +1,43 @@
 package com.rensen.techiteasykotlin.dtos
 
 data class TelevisionInputDto (
-        val type: String? = null,
-        val brand: String? = null,
-        val name: String? = null,
-        val screenType: String? = null,
-        val screenQuality: String? = null,
-        val price: Double? = null,
-        val availableSize: Double? = null,
-        val refreshRate: Double? = null,
-        val smartTv: Boolean? = null,
-        val wifi: Boolean? = null,
-        val voiceControl: Boolean? = null,
-        val hdr: Boolean? = null,
-        val blueTooth: Boolean? = null,
-        val ambiLight: Boolean? = null,
-        val originalStock: Int? = null,
-        val sold: Int? = null
+        var type: String? = null,
+        var brand: String? = null,
+        var name: String? = null,
+        var screenType: String? = null,
+        var screenQuality: String? = null,
+        var price: Double? = null,
+        var availableSize: Double? = null,
+        var refreshRate: Double? = null,
+        var smartTv: Boolean? = null,
+        var wifi: Boolean? = null,
+        var voiceControl: Boolean? = null,
+        var hdr: Boolean? = null,
+        var blueTooth: Boolean? = null,
+        var ambiLight: Boolean? = null,
+        var originalStock: Int? = null,
+        var sold: Int? = null
 )
 
 data class TelevisionOutputDto (
-        val id: Long,
-        val type: String?,
-        val brand: String?,
-        val name: String? ,
-        val screenType: String? ,
-        val screenQuality: String? ,
-        val price: Double? ,
-        val availableSize: Double? ,
-        val refreshRate: Double? ,
-        val smartTv: Boolean? ,
-        val wifi: Boolean? ,
-        val voiceControl: Boolean? ,
-        val hdr: Boolean? ,
-        val blueTooth: Boolean? ,
-        val ambiLight: Boolean? ,
-        val originalStock: Int? ,
-        val sold: Int? 
+        var id: Long?,
+        var type: String?,
+        var brand: String?,
+        var name: String? ,
+        var screenType: String? ,
+        var screenQuality: String? ,
+        var price: Double? ,
+        var availableSize: Double? ,
+        var refreshRate: Double? ,
+        var smartTv: Boolean? ,
+        var wifi: Boolean? ,
+        var voiceControl: Boolean? ,
+        var hdr: Boolean? ,
+        var blueTooth: Boolean? ,
+        var ambiLight: Boolean? ,
+        var originalStock: Int? ,
+        var sold: Int? 
 )
+
+
 

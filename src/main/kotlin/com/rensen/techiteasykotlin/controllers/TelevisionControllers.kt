@@ -1,23 +1,19 @@
 package com.rensen.techiteasykotlin.controllers;
 
-import com.rensen.techiteasykotlin.services.TelevisionService
 import com.rensen.techiteasykotlin.TelevisionTestObject
 import com.rensen.techiteasykotlin.dtos.TelevisionInputDto
 import com.rensen.techiteasykotlin.dtos.TelevisionOutputDto
-import org.springframework.http.HttpRequest
+import com.rensen.techiteasykotlin.services.TelevisionService
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
 import java.net.URI
 import java.time.LocalDateTime
+
 
 /*
 In Kotlin kunnen meerdere klassen in 1 file leven.
@@ -87,10 +83,10 @@ class TelevisionTestListController {
     }
 }
 
-
+@RestController
 @RequestMapping("/televisions")
 class TelevisionController(
-        val televisionService: TelevisionService /*Constructor injection*/
+        val televisionService: TelevisionService /*Constructor injection (primary constructor in class header)*/
 ){
     @GetMapping
     fun getAllTelevisions() = ResponseEntity.ok(televisionService.getAllTelevisions());
@@ -99,9 +95,20 @@ class TelevisionController(
     fun getTelevisionById(@PathVariable id: Long) = ResponseEntity.ok(televisionService.getTelevisionById(id))
 
     @PostMapping
-    fun postTelevision(@RequestBody dto: TelevisionInputDto, request: HttpRequest) : ResponseEntity<Void>{
+    fun postTelevision(@Valid @RequestBody dto: TelevisionInputDto, request: HttpServletRequest) : ResponseEntity<Void>{
         val tv: TelevisionOutputDto = televisionService.postTelevision(dto)
-        val uri: URI = URI.create(request.uri.path + "/" + tv.id)
-        return ResponseEntity.created(uri).build()
+        val baseUrl = ServletUriComponentsBuilder.fromCurrentRequest()
+                .buildAndExpand(tv.id)
+                .toUriString()
+        // Variabelen kun je makkelijk in een String gebruiken met $, gebruik ${} om code uit te voeren.
+        val location: URI = URI.create("$baseUrl/${tv.id}") // Modify this according to your resource
+
+        return ResponseEntity.created(location).build()
     }
+
+    @PutMapping("/{id}")
+    fun putTelevision(@PathVariable id: Long, @Valid @RequestBody dto: TelevisionInputDto) = ResponseEntity.ok(televisionService.putTelevision(id,dto))
+
+    @DeleteMapping("/{id}")
+    fun deleteTelevision(@PathVariable id: Long) = ResponseEntity(televisionService.deleteTelevision(id), HttpStatus.NO_CONTENT)
 }

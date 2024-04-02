@@ -1,5 +1,6 @@
 package com.rensen.techiteasykotlin
 
+import com.rensen.techiteasykotlin.dtos.TelevisionOutputDto
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -14,7 +15,6 @@ class Television {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-
     var type: String? = null
     var brand: String? = null
     var name: String? = null

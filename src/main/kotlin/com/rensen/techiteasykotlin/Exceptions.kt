@@ -17,3 +17,11 @@ class ExceptionHandlers{
 
 
 }
+
+class RecordNotFoundException: RuntimeException {
+    // als er maar 1 super constructor is, kan dat direct in de klasse declaratie worden ingevuld.
+    // als er meerdere zijn, kun je het "constructor" keyword gebruiken.
+    constructor(message: String): super(message)
+    constructor(): super()
+
+}
