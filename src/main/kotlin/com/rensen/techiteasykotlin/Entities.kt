@@ -129,7 +129,7 @@ class WallBracket{
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
      var id: Long? = null
      var size: String? = null
      var adjustable: Boolean? = null
@@ -144,7 +144,7 @@ class WallBracket{
 @Entity
 class CiModule{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
      var id: Long? = null
      var name: String? = null
      var type: String? = null
@@ -167,6 +167,9 @@ class CiModule{
 @Table(name = "users")
 class User (userName: String, password: String){
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
+
     var userName: String? = null
 
     var password: String? = null
@@ -175,5 +178,31 @@ class User (userName: String, password: String){
 
     var editedDate: LocalDateTime = LocalDateTime.now()
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @JoinTable(
+        name = "user_role",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "role_id")]
+    )
+    var roles : List<Role> = mutableListOf()
 
 }
+
+@Entity
+@Table(name = "roles")
+class Role{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
+
+    var active: Boolean = true
+
+    var createdDate: LocalDateTime = LocalDateTime.now()
+
+    var editedDate: LocalDateTime = LocalDateTime.now()
+
+    var description: String? = null;
+
+    var roleName: String? = null
+}
+
