@@ -25,6 +25,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 //    implementation("dev.krud:spring-boot-starter-shapeshift:0.8.0")
 //    implementation("org.modelmapper:modelmapper:3.2.0")
     implementation("org.postgresql:postgresql")
