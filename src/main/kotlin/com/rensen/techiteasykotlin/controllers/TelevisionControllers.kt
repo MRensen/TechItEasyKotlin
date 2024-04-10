@@ -98,7 +98,7 @@ class TelevisionController(
     fun postTelevision(@Valid @RequestBody dto: TelevisionInputDto, request: HttpServletRequest) : ResponseEntity<Void>{
         val tv: TelevisionOutputDto = televisionService.postTelevision(dto)
         val baseUrl = ServletUriComponentsBuilder.fromCurrentRequest()
-                .buildAndExpand(tv.id)
+                .build()
                 .toUriString()
         // Variabelen kun je makkelijk in een String gebruiken met $, gebruik ${} om code uit te voeren.
         val location: URI = URI.create("$baseUrl/${tv.id}") // Modify this according to your resource
