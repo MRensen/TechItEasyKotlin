@@ -2,6 +2,9 @@ package com.rensen.techiteasykotlin
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
 
 
@@ -165,14 +168,10 @@ class CiModule{
 
 @Entity
 @Table(name = "users")
-class User (userName: String, password: String){
+class User (var userName: String, @get:JvmName("getPasswordOrNull") var password: String) : UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
-
-    var userName: String? = null
-
-    var password: String? = null
 
     var createdDate: LocalDateTime = LocalDateTime.now()
 
@@ -185,6 +184,17 @@ class User (userName: String, password: String){
         inverseJoinColumns = [JoinColumn(name = "role_id")]
     )
     var roles : List<Role> = mutableListOf()
+
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
+        roles.mapTo( mutableListOf<GrantedAuthority>()) { SimpleGrantedAuthority(it.roleName) }
+
+
+    override fun getPassword(): String = password?:""
+    override fun getUsername(): String = username?:""
+    override fun isAccountNonExpired(): Boolean = true
+    override fun isAccountNonLocked(): Boolean = true
+    override fun isCredentialsNonExpired(): Boolean = true
+    override fun isEnabled(): Boolean = true
 
 }
 
